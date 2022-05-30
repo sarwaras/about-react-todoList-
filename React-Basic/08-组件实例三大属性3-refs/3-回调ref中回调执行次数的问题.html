@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ref</title>
+  </head>
+  <body>
+    <div id="test"></div>
+
+    <!-- 引入 react 核心库 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入 react-dom ，用于支持react操作类DOM -->
+    <script type="text/javascript" src="../js/react-dom.development.js">
+      //   import ReactDom from 'react-dom'
+    </script>
+    <!-- 引入 babel , 用于将 JSX 转换为JS  -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+      //创建组件
+      class Demo extends React.Component {
+        state = { isHot: true }
+
+        showInfo = () => {
+          const { input1 } = this
+          alert(input1.value)
+        }
+
+        render() {
+          const { isHot } = this.state
+          return (
+            <div>
+              <h2>几天内天气很{isHot ? "炎热" : "凉爽"}</h2>
+              <input ref={c => (this.input2 = c)} type='text' placeholder='失去焦点提示数据' />
+              <input ref={this.saveInput} type='text' /> <br />
+              <br />
+              <button onClick={this.showData}>点我提示左侧的数据</button> &nbsp;
+            </div>
+          )
+        }
+      }
+    </script>
+  </body>
+</html>

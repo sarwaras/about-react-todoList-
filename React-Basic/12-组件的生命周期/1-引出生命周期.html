@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="test"></div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script text="text/babel">
+      //  创建组件
+      class Life extends React.component {
+        state = { opacity: 1 }
+
+        dath = () => {
+          //清楚定时器
+          //   clearInterval(this.timer)
+          // 卸载组件
+          ReactDom.unmountComponnetAtNode(document.getElementById("test"))
+        }
+
+        //  组件挂载完毕
+        componentDidMount() {
+          this.timer = setInterval(() => {
+            // 获取原状态
+            let { opacity } = this.state
+            opacity -= 0.1
+            if (opacity <= 0) {
+              opacity = 1
+              //设置新的透明度
+              this.setState({ opacity })
+            }
+          }, 200)
+        }
+
+        //  组件将要卸载
+        componentWillUmmount() {
+          //  清除定时器
+          clearInterval(this.timer)
+        }
+
+        // 初始化渲染、状态更新之后
+        render() {
+          //   不能在这写定时器，因为导致很多次调用render，导致电脑的cpu发热过高
+          //   setInterval(() => {
+          //     // 获取原状态
+          //     let { opacity } = this.state
+          //     opacity -= 0.1
+          //     if (opacity <= 0) {
+          //       //设置新的透明度
+          //       this.setState({})
+          //     }
+          //   }, 200)
+
+          return (
+            <div>
+              <h2>Raect 要命了！</h2>
+              <button onClick={this.dath}>按钮</button>
+            </div>
+          )
+        }
+      }
+      ReactDom.render(<Life />, document.getElementById("test"))
+    </script>
+  </body>
+</html>
